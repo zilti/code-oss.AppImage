@@ -1,0 +1,81 @@
+version: 2.1
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run:
+          name: "Installing dependencies"
+          command: |
+            curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+            sudo apt-get install fuse libfuse2 kmod git jq patch appstream-util nodejs
+            sudo depmod
+            sudo modprobe fuse
+      - run:
+          name: "Preparing NodeJS and Yarn"
+          command: |
+            export NVM_DIR="/opt/circleci/.nvm"
+            export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install v12.14.0
+            nvm use v12.14.0
+            curl -o -L https://yarnpkg.com/install.sh | bash
+            yarn --version
+      - run:
+          name: "Preparing and compiling VSCode"
+          command: |
+            export NVM_DIR="/opt/circleci/.nvm"
+            export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+            git clone https://github.com/Microsoft/vscode
+            cd vscode
+            yarn gulp vscode-linux-x64
+      - run:
+          name: "Preparing AppImage tools and assets"
+          command: |
+            mkdir bin; cd bin
+            curl -L https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -o appimagetool; chmod +x appimagetool
+            curl -L https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -o linuxdeploy; chmod +x linuxdeploy
+            cd ..
+            curl 'https://about.riot.im/images/riot-nav.svg' -o riot-nav.svg
+            git clone https://github.com/vector-im/riot-web.git
+            cd riot-web
+            git fetch --tags
+            git checkout v1.5.6
+      -run:
+        name: "Building AppImage"
+        command: |
+            echo "-----BEGIN PGP PRIVATE KEY BLOCK-----" > certificate.asc
+            echo "" >> certificate.asc
+            echo $SIGN_CERT >> certificate.asc
+            echo "-----END PGP PRIVATE KEY BLOCK-----" >> certificate.asc
+            gpg --import ./certificate.asc
+            mkdir AppDir
+            cd AppDir
+            mkdir -p usr/share/metainfo
+            mkdir -p usr/share/icons/hicolor/scalable/apps
+            mkdir -p usr/share/applications
+            cp ../code-oss.svg usr/share/icons/hicolor/scalable/apps
+            #cp ../im.vector.riot-web.appdata.xml usr/share/metainfo
+            cp ../code-oss.desktop usr/share/applications
+            cp -r ../../VSCode-linux-x64 usr/share/code-oss
+            cd ..
+            export SIGN=1
+            export ARCH=x86_64
+            export UPDATE_INFORMATION="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code-*.AppImage.zsync"
+            export CODIR=AppDir/usr/share/code-oss
+            bin/linuxdeploy \
+            --appdir=AppDir \
+            --desktop-file=AppDir/usr/share/applications/code-oss.desktop \
+            --icon-file=AppDir/usr/share/icons/hicolor/scalable/apps/code-oss.svg \
+            --library=$CODIR/libEGL.so \
+            --library=$CODIR/libffmpeg.so \
+            --library=$CODIR/libGLESv2.so \
+            --library=$CODIR/swiftshader/libEGL.so \
+            --library=$CODIR/swiftshader/libGLESv2.so \
+            --executable=$CODIR/chrome-sandbox \
+            --executable=$CODIR/code-oss \
+            --output=appimage
+            export TRAVIS_REPO_SLUG="zilti/code-oss.AppImage"
+            wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+            bash upload.sh *.AppImage*
