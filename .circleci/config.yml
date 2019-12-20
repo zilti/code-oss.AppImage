@@ -36,6 +36,7 @@ jobs:
             export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
             git clone https://github.com/Microsoft/vscode
             cd vscode
+            git checkout 1.39.2
             yarn gulp vscode-linux-x64
       - run:
           name: "Preparing AppImage tools and assets"
