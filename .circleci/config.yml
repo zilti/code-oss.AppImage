@@ -18,10 +18,10 @@ jobs:
             export NVM_DIR="/opt/circleci/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            echo "nvm install v12.14.0..."
-            nvm install v12.14.0
-            echo "nvm use v12.14.0"
-            nvm use v12.14.0
+            echo "nvm install v10.0.0..."
+            nvm install v10.0.0
+            echo "nvm use v10.0.0"
+            nvm use v10.0.0
             echo "npm version"
             npm version
             echo "installing yarn..."
@@ -35,7 +35,7 @@ jobs:
             export NVM_DIR="/opt/circleci/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-            nvm use v12.14.0
+            nvm use v10.0.0
             git clone https://github.com/Microsoft/vscode
             cd vscode
             git checkout 1.39.2
