@@ -10,7 +10,7 @@ jobs:
           command: |
             curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
             sudo apt-get install fuse libfuse2 kmod git jq patch appstream-util nodejs \
-                         xkbfile-dev
+                         libxkbfile-dev
             sudo depmod
             sudo modprobe fuse
       - run:
