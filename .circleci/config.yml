@@ -17,11 +17,18 @@ jobs:
           command: |
             export NVM_DIR="/opt/circleci/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            echo "nvm install v12.14.0..."
             nvm install v12.14.0
+            echo "nvm use v12.14.0"
             nvm use v12.14.0
-            curl -o -L https://yarnpkg.com/install.sh | bash
+            echo "npm version"
+            npm version
+            echo "installing yarn..."
+            curl -o- -L https://yarnpkg.com/install.sh | bash
             export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
             yarn --version
+            echo "Done."
       - run:
           name: "Preparing and compiling VSCode"
           command: |
