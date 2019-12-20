@@ -39,7 +39,10 @@ jobs:
             git clone https://github.com/Microsoft/vscode
             cd vscode
             git checkout 1.39.2
+            yarn preinstall
+            yarn install
             yarn gulp vscode-linux-x64
+            yarn postinstall
             cd ..
       - run:
           name: "Preparing AppImage tools and assets"
