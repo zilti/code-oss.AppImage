@@ -1,0 +1,7 @@
+#!/bin/sh
+
+VSCODE_PATH="${APPDIR}/usr/share/code-oss"
+ELECTRON="$VSCODE_PATH/code-oss"
+CLI="$VSCODE_PATH/resources/app/out/cli.js"
+"$ELECTRON" "$CLI" "$@"
+exit $?

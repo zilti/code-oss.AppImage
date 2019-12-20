@@ -33,6 +33,7 @@ jobs:
           name: "Preparing and compiling VSCode"
           command: |
             export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
             nvm use v12.14.0
             git clone https://github.com/Microsoft/vscode
@@ -85,6 +86,7 @@ jobs:
             --library=$CODIR/swiftshader/libGLESv2.so \
             --executable=$CODIR/chrome-sandbox \
             --executable=$CODIR/code-oss \
+            --custom-apprun=AppRun \
             --output=appimage
             export TRAVIS_REPO_SLUG="zilti/code-oss.AppImage"
             wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh

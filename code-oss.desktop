@@ -7,5 +7,5 @@ Exec=code-oss
 Path=/usr/share/code-oss
 Icon=code-oss
 Type=Application
-Categories=Development;IDE;Debugger
+Categories=Development;IDE;Debugger;
 X-AppImage-Version=1.39.2
