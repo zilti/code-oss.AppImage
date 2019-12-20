@@ -42,7 +42,7 @@ jobs:
             cd riot-web
             git fetch --tags
             git checkout v1.5.6
-      -run:
+      - run:
         name: "Building AppImage"
         command: |
             echo "-----BEGIN PGP PRIVATE KEY BLOCK-----" > certificate.asc
