@@ -1,0 +1,14 @@
+--- product.json	2019-12-20 03:34:21.000000000 +0100
++++ product.json	2019-12-20 11:32:49.160542190 +0100
+@@ -22,5 +22,10 @@
+ 	"urlProtocol": "code-oss",
+ 	"extensionAllowedProposedApi": [
+ 		"ms-vscode.references-view"
+-	]
++	],
++	"extensionsGallery": {
++	"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
++	"cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
++	"itemUrl": "https://marketplace.visualstudio.com/items"
++	}
+ }
