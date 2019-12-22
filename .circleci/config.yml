@@ -58,7 +58,7 @@ jobs:
           command: |
             echo "-----BEGIN PGP PRIVATE KEY BLOCK-----" > certificate.asc
             echo "" >> certificate.asc
-            echo $SIGN_CERT >> certificate.asc
+            echo $SIGN_CERT | sed 's/\s/\n/g' >> certificate.asc
             echo "-----END PGP PRIVATE KEY BLOCK-----" >> certificate.asc
             gpg --import ./certificate.asc
             mkdir AppDir
