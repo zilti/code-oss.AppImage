@@ -1,0 +1,59 @@
+language: node_js
+sudo: true
+
+script:
+- sudo apt-get install fuse appstream-util git jq patch libxkbfile-dev
+- nvm install v10.18.0
+- nvm use v10.18.0
+- curl -o- -L https://yarnpkg.com/install.sh | bash
+- export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+- mkdir bin; cd bin
+- curl -L https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+  -o appimagetool; chmod +x appimagetool
+- curl -L https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+  -o linuxdeploy; chmod +x linuxdeploy
+- cd ..
+- git clone https://github.com/Microsoft/vscode
+- cd vscode
+- git checkout 1.39.2
+- patch -i ../product.json.patch
+- yarn preinstall
+- yarn install
+- yarn gulp vscode-linux-x64
+- yarn postinstall
+- cd ..
+- gpg --import ~/appsign.asc
+- mkdir AppDir
+- BUILD_HOME="$(pwd)"
+- BUILD_APPDIR="${BUILD_HOME}/AppDir"
+- mkdir -p "${BUILD_APPDIR}/usr/share/metainfo"
+- mkdir -p "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
+- mkdir -p "${BUILD_APPDIR}/usr/share/applications"
+- cp code-oss.svg "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
+- 
+- cp code-oss.desktop "${BUILD_APPDIR}/usr/share/applications"
+- chmod +x AppRun
+- mv VSCode-linux-x64 "${BUILD_APPDIR}/usr/share/code-oss"
+- export SIGN=1
+- export ARCH=x86_64
+- export UPDATE_INFORMATION="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code-*.AppImage.zsync"
+- export CODIR="${BUILD_APPDIR}/usr/share/code-oss"
+- |
+  bin/linuxdeploy \
+  --appdir=AppDir \
+  --desktop-file=AppDir/usr/share/applications/code-oss.desktop \
+  --icon-file=AppDir/usr/share/icons/hicolor/scalable/apps/code-oss.svg \
+  --library=$CODIR/libEGL.so \
+  --library=$CODIR/libffmpeg.so \
+  --library=$CODIR/libGLESv2.so \
+  --library=$CODIR/swiftshader/libEGL.so \
+  --library=$CODIR/swiftshader/libGLESv2.so \
+  --executable=$CODIR/code-oss \
+  --custom-apprun=AppRun \
+  --output=appimage
+- wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+- bash upload.sh ./*.AppImage*
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_36aeddb2b26d_key -iv $encrypted_36aeddb2b26d_iv
+  -in appsign.asc.enc -out ~/appsign.asc -d
