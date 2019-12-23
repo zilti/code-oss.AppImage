@@ -36,7 +36,7 @@ script:
 - mv VSCode-linux-x64 "${BUILD_APPDIR}/usr/share/code-oss"
 - export SIGN=1
 - export ARCH=x86_64
-- export UPDATE_INFORMATION="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code-*.AppImage.zsync"
+- export UPDATE_INFORMATION="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync"
 - export CODIR="${BUILD_APPDIR}/usr/share/code-oss"
 - |
   bin/linuxdeploy \
