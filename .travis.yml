@@ -43,11 +43,11 @@ script:
   --appdir=AppDir \
   --desktop-file=AppDir/usr/share/applications/code-oss.desktop \
   --icon-file=AppDir/usr/share/icons/hicolor/scalable/apps/code-oss.svg \
+  --library=$CODIR/libGLESv2.so \
   --library=$CODIR/libEGL.so \
   --library=$CODIR/libffmpeg.so \
-  --library=$CODIR/libGLESv2.so \
-  --library=$CODIR/swiftshader/libEGL.so \
   --library=$CODIR/swiftshader/libGLESv2.so \
+  --library=$CODIR/swiftshader/libEGL.so \
   --executable=$CODIR/code-oss \
   --custom-apprun=AppRun \
   --output=appimage
