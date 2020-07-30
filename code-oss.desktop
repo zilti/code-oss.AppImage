@@ -7,4 +7,4 @@ Exec=AppRun
 Icon=code-oss
 Type=Application
 Categories=Development;IDE;Debugger;
-X-AppImage-Version=1.39.2
+X-AppImage-Version=1.47.3
