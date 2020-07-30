@@ -2,7 +2,7 @@ language: node_js
 sudo: true
 
 script:
-- sudo apt-get install fuse appstream-util git jq patch libxkbfile-dev libgles2-mesa-dev libsecret-1-0
+- sudo apt-get install fuse appstream-util git jq patch libxkbfile-dev libgles2-mesa-dev libsecret-1-dev
 - nvm install v12.15.0
 - nvm use v12.15.0
 - curl -o- -L https://yarnpkg.com/install.sh | bash
