@@ -1,14 +1,14 @@
---- product.json	2019-12-20 03:34:21.000000000 +0100
-+++ product.json	2019-12-20 11:32:49.160542190 +0100
-@@ -22,5 +22,10 @@
+--- product.json.orig	2020-07-30 16:30:50.994820157 +0200
++++ product.json	2020-07-30 16:31:11.682754442 +0200
+@@ -22,6 +22,11 @@
+ 	"licenseFileName": "LICENSE.txt",
+ 	"reportIssueUrl": "https://github.com/Microsoft/vscode/issues/new",
  	"urlProtocol": "code-oss",
- 	"extensionAllowedProposedApi": [
- 		"ms-vscode.references-view"
--	]
-+	],
 +	"extensionsGallery": {
-+	"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
-+	"cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
-+	"itemUrl": "https://marketplace.visualstudio.com/items"
-+	}
- }
++		"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
++		"cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
++		"itemUrl": "https://marketplace.visualstudio.com/items"
++	},
+ 	"extensionAllowedProposedApi": [
+ 		"ms-vscode.vscode-js-profile-flame",
+ 		"ms-vscode.vscode-js-profile-table",
