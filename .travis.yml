@@ -15,7 +15,7 @@ script:
 - cd ..
 - git clone https://github.com/Microsoft/vscode
 - cd vscode
-- git checkout 1.47.3
+- git checkout 1.48.2
 - patch -i ../product.json.patch
 - yarn preinstall
 - yarn install
