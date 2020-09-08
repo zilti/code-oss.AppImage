@@ -32,6 +32,7 @@ script:
 - mkdir -p "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
 - mkdir -p "${BUILD_APPDIR}/usr/share/applications"
 - cp code-oss.svg "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
+- cp code-oss.svg "${BUILD_APPDIR}/usr/share/code-oss/code-oss.svg"
 - cp code-oss.desktop "${BUILD_APPDIR}/usr/share/applications"
 - chmod +x AppRun
 - mv VSCode-linux-x64 "${BUILD_APPDIR}/usr/share/code-oss"
