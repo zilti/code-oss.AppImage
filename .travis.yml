@@ -15,6 +15,7 @@ script:
 - curl -L https://github.com/probonopd/linuxdeployqt/releases/download/7/linuxdeployqt-7-x86_64.AppImage
   -o linuxdeployqt; chmod +x linuxdeployqt
 - cd ..
+- BUILD_SRCDIR="$(pwd)"
 - git clone https://github.com/Microsoft/vscode
 - cd vscode
 - git checkout 1.48.2
@@ -32,7 +33,7 @@ script:
 - mkdir -p "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
 - mkdir -p "${BUILD_APPDIR}/usr/share/applications"
 - cp code-oss.svg "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
-- cp code-oss.svg "${BUILD_APPDIR}/usr/share/code-oss/code-oss.svg"
+- cp "${BUILD_SRCDIR}/vscode/resources/linux/code.png" "${BUILD_APPDIR}/usr/share/code-oss/code-oss.png"
 - cp code-oss.desktop "${BUILD_APPDIR}/usr/share/applications"
 - chmod +x AppRun
 - mv VSCode-linux-x64 "${BUILD_APPDIR}/usr/share/code-oss"
