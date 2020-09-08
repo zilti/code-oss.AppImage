@@ -10,8 +10,6 @@ script:
 - mkdir bin; cd bin
 - curl -L https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
   -o appimagetool; chmod +x appimagetool
-- curl -L https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-  -o linuxdeploy; chmod +x linuxdeploy
 - curl -L https://github.com/probonopd/linuxdeployqt/releases/download/7/linuxdeployqt-7-x86_64.AppImage
   -o linuxdeployqt; chmod +x linuxdeployqt
 - cd ..
@@ -45,23 +43,10 @@ script:
 - export ARCH=x86_64
 - export UPDATE_INFORMATION="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync"
 - export CODIR="${BUILD_APPDIR}/usr/share/code-oss"
-- # |
-  #bin/linuxdeploy \
-  #--appdir=AppDir \
-  #--desktop-file=AppDir/usr/share/applications/code-oss.desktop \
-  #--icon-file=AppDir/usr/share/icons/hicolor/scalable/apps/code-oss.svg \
-  #--library=$CODIR/libGLESv2.so \
-  #--library=$CODIR/libEGL.so \
-  #--library=$CODIR/libffmpeg.so \
-  #--library=$CODIR/swiftshader/libGLESv2.so \
-  #--library=$CODIR/swiftshader/libEGL.so \
-  #--executable=$CODIR/code-oss \
-  #--custom-apprun=AppRun \
-  #--output=appimage
 - |
   bin/linuxdeployqt AppDir/usr/share/applications/code-oss.desktop \
-  -updateinformation="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync" \
-  -appimage
+  -bundle-non-qt-libs
+- appimagetool -s -u "gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync" AppDir Code_OSS-x86_64.AppImage
 - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
 - bash upload.sh ./*.AppImage*
 
