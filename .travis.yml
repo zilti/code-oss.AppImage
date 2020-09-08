@@ -3,8 +3,8 @@ sudo: true
 
 script:
 - sudo apt-get install fuse appstream-util git jq patch libxkbfile-dev libgles2-mesa-dev libsecret-1-dev
-- nvm install v12.15.0
-- nvm use v12.15.0
+- nvm install v12.18.0
+- nvm use v12.18.0
 - curl -o- -L https://yarnpkg.com/install.sh | bash
 - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 - mkdir bin; cd bin
