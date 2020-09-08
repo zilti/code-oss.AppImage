@@ -46,7 +46,8 @@ script:
 - |
   bin/linuxdeployqt AppDir/usr/share/applications/code-oss.desktop \
   -bundle-non-qt-libs
-- appimagetool -s -u "gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync" AppDir Code_OSS-x86_64.AppImage
+- ls -l
+- bin/appimagetool -s -u "gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync" AppDir Code_OSS-x86_64.AppImage
 - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
 - bash upload.sh ./*.AppImage*
 
