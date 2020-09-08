@@ -2,7 +2,7 @@ language: node_js
 sudo: true
 
 script:
-- sudo apt-get install fuse appstream-util git jq patch libxkbfile-dev libgles2-mesa-dev libsecret-1-dev
+- sudo apt-get install fuse appstream appstream-util git jq patch libxkbfile-dev libgles2-mesa-dev libsecret-1-dev
 - nvm install v12.18.0
 - nvm use v12.18.0
 - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -31,7 +31,9 @@ script:
 - mkdir -p "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
 - mkdir -p "${BUILD_APPDIR}/usr/share/applications"
 - cp code-oss.svg "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
+- cp code-oss.svg "${BUILD_APPDIR}
 - cp code-oss.desktop "${BUILD_APPDIR}/usr/share/applications"
+- cp code-oss.desktop "${BUILD_APPDIR}"
 - chmod +x AppRun
 - mv VSCode-linux-x64 "${BUILD_APPDIR}/usr/share/code-oss"
 - cp "${BUILD_SRCDIR}/vscode/resources/linux/code.png" "${BUILD_APPDIR}/usr/share/code-oss/code-oss.png"
