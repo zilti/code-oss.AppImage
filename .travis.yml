@@ -12,6 +12,8 @@ script:
   -o appimagetool; chmod +x appimagetool
 - curl -L https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
   -o linuxdeploy; chmod +x linuxdeploy
+- curl -L https://github.com/probonopd/linuxdeployqt/releases/download/7/linuxdeployqt-7-x86_64.AppImage
+  -o linuxdeployqt; chmod +x linuxdeployqt
 - cd ..
 - git clone https://github.com/Microsoft/vscode
 - cd vscode
@@ -38,7 +40,7 @@ script:
 - export ARCH=x86_64
 - export UPDATE_INFORMATION="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync"
 - export CODIR="${BUILD_APPDIR}/usr/share/code-oss"
-- |
+- # |
   bin/linuxdeploy \
   --appdir=AppDir \
   --desktop-file=AppDir/usr/share/applications/code-oss.desktop \
@@ -51,6 +53,10 @@ script:
   --executable=$CODIR/code-oss \
   --custom-apprun=AppRun \
   --output=appimage
+- |
+  bin/linuxdeployqt AppDir/usr/share/applications/code-oss.desktop \
+  -updateinformation="gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync" \
+  -appimage
 - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
 - bash upload.sh ./*.AppImage*
 
