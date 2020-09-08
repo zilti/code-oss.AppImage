@@ -32,7 +32,7 @@ script:
 - mkdir -p "${BUILD_APPDIR}/usr/share/applications"
 - mkdir -p "${BUILD_APPDIR}/usr/bin"
 - cp code-oss.svg "${BUILD_APPDIR}/usr/share/icons/hicolor/scalable/apps"
-- cp code-oss.svg "${BUILD_APPDIR}
+- cp code-oss.svg "${BUILD_APPDIR}"
 - cp code-oss.desktop "${BUILD_APPDIR}/usr/share/applications"
 - cp code-oss.desktop "${BUILD_APPDIR}"
 - chmod +x AppRun
