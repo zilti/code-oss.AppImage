@@ -49,7 +49,7 @@ script:
 - export CODIR="${BUILD_APPDIR}/usr/share/code-oss"
 - |
   bin/linuxdeployqt AppDir/usr/share/applications/code-oss.desktop \
-  -u "gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync"
+  -updateinformation "gh-releases-zsync|zilti|code-oss.AppImage|continuous|Code*.AppImage.zsync"
   -appimage
 - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
 - bash upload.sh ./*.AppImage*
